@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 85% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 5% 14%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 0 3% 12%;
+    --muted-foreground: 0 5% 55%;
+    --accent: 0 85% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 5% 18%;
+    --input: 0 5% 18%;
+    --ring: 0 85% 50%;
+    --chart-1: 0 85% 50%;
+    --chart-2: 0 60% 40%;
+    --chart-3: 15 80% 55%;
+    --chart-4: 350 70% 45%;
+    --chart-5: 0 0% 60%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 85% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 5% 14%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 5% 18%;
+    --sidebar-ring: 0 85% 50%;
+    --neon: 0 85% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .neon-glow {
+    text-shadow: 0 0 10px hsl(var(--neon) / 0.5), 0 0 40px hsl(var(--neon) / 0.2);
+  }
+  .neon-border {
+    box-shadow: 0 0 10px hsl(var(--neon) / 0.15), inset 0 0 10px hsl(var(--neon) / 0.05);
+  }
+  .glass {
+    @apply bg-card/80 backdrop-blur-xl;
+  }
+}
+
+@keyframes pulse-neon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out forwards;
+}
+
+.animate-count-up {
+  animation: count-up 0.4s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-pulse-neon {
+  animation: pulse-neon 2s ease-in-out infinite;
+}
