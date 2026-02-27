@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Table,
@@ -7,17 +7,29 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import type { Order, StatusColorMap } from '@/lib/types'
+} from "@/components/ui/table";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import type { Order, StatusColorMap } from "@/lib/types";
+import { DropdownMenuDemo } from "./dropdown";
+import { useState } from "react";
 
 type ServiceHistoryProps = {
-  orders: Order[]
-  statusColorMap: StatusColorMap
-  statusLabelMap: Record<string, string>
-}
+  orders: Order[];
+  statusColorMap: StatusColorMap;
+  statusLabelMap: Record<string, string>;
+};
 
-export function ServiceHistory({ orders, statusColorMap, statusLabelMap }: ServiceHistoryProps) {
+export function ServiceHistory({
+  orders,
+  statusColorMap,
+  statusLabelMap,
+}: ServiceHistoryProps) {
+  const [orders_list, setOrders] = useState<Order[]>(orders);
+
+  const deleteOrder = (id: Order["id"]) => {
+    setOrders(orders_list.filter((order) => order.id !== id));
+  };
+
   return (
     <Card className="border-border/50 bg-card/50 overflow-hidden">
       <CardHeader>
@@ -32,13 +44,23 @@ export function ServiceHistory({ orders, statusColorMap, statusLabelMap }: Servi
                 <TableHead className="text-foreground">Pojazd</TableHead>
                 <TableHead className="text-foreground">Usługi</TableHead>
                 <TableHead className="text-foreground">Status</TableHead>
-                <TableHead className="text-right text-foreground">Cena</TableHead>
-                <TableHead className="text-right text-foreground">Data</TableHead>
+                <TableHead className="text-right text-foreground">
+                  Cena
+                </TableHead>
+                <TableHead className="text-right text-foreground">
+                  Data
+                </TableHead>
+                <TableHead className="text-right text-foreground">
+                  Opcje
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order.id} className="border-border/50 hover:bg-secondary/20">
+              {orders_list.map((order) => (
+                <TableRow
+                  key={order.id}
+                  className="border-border/50 hover:bg-secondary/20"
+                >
                   <TableCell className="font-mono text-sm font-medium text-foreground">
                     {order.id}
                   </TableCell>
@@ -59,16 +81,21 @@ export function ServiceHistory({ orders, statusColorMap, statusLabelMap }: Servi
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium ${statusColorMap[order.status]}`}
+                      className={`rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium ${
+                        statusColorMap[order.status]
+                      }`}
                     >
                       {statusLabelMap[order.status]}
                     </span>
                   </TableCell>
                   <TableCell className="text-right font-medium text-foreground">
-                    {order.price.toLocaleString('pl-PL')} PLN
+                    {order.price.toLocaleString("pl-PL")} PLN
                   </TableCell>
                   <TableCell className="text-right text-muted-foreground">
-                    {new Date(order.createdAt).toLocaleDateString('pl-PL')}
+                    {new Date(order.createdAt).toLocaleDateString("pl-PL")}
+                  </TableCell>
+                  <TableCell className="justify-items-end items-center font-medium text-foreground">
+                    <DropdownMenuDemo id={order.id} func={deleteOrder} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -77,5 +104,5 @@ export function ServiceHistory({ orders, statusColorMap, statusLabelMap }: Servi
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
